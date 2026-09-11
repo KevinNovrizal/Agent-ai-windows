@@ -81,3 +81,8 @@ Untuk model 4B, tools.tool_search.enabled=off membuat schema alat langsung terse
 ## Untuk pengembang dan AI penerus
 
 Baca [AGENTS.md](AGENTS.md) dan [panduan penerusan](docs/AI-HANDOFF.md). Panduan menjelaskan build/pembaruan Windows, konfigurasi server, bukti pengujian, serta insiden konfigurasi di cache Codex. Instalasi Windows aktif sekarang C:\Users\novri\Applications\AgentLokal.
+
+## Repository GitHub
+
+Source dan riwayat perubahan: https://github.com/KevinNovrizal/Agent-ai-windows (branch main). Mulai pembaruan dengan membaca AGENTS.md dan docs/AI-HANDOFF.md. Upload dilakukan lewat HTTPS dengan autentikasi Git Credential Manager Windows; kredensial tidak disertakan dalam repository. Push source tidak otomatis memperbarui aplikasi terpasang atau layanan server.
+
