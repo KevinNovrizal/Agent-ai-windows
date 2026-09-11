@@ -1,6 +1,6 @@
 param([string]$KeyPath,[string]$KnownHostsPath)
 $ErrorActionPreference='Stop'
-$installDir=Join-Path $env:LOCALAPPDATA 'AgentLokal'
+$installDir=Join-Path ([Environment]::GetFolderPath('UserProfile')) 'Applications\AgentLokal'
 New-Item -ItemType Directory -Force -Path $installDir | Out-Null
 Copy-Item -LiteralPath (Join-Path $PSScriptRoot 'AgentLokal.exe') -Destination (Join-Path $installDir 'AgentLokal.exe') -Force
 if($KeyPath -and $KnownHostsPath){
@@ -20,3 +20,4 @@ $shortcut.WorkingDirectory=$installDir
 $shortcut.Description='Agent coding lokal melalui server RTX 5060'
 $shortcut.Save()
 Write-Output "Terpasang: $installDir. Gunakan Koneksi / pindah PC untuk impor profil."
+

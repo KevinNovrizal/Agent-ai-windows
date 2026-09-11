@@ -1,7 +1,7 @@
 # Validasi Agent Lokal — Windows dahulu
 
 Tanggal: 11 September 2026. Aplikasi Windows telah terpasang di
-C:\Users\novri\AppData\Local\AgentLokal\AgentLokal.exe, dengan shortcut Agent Lokal di Desktop.
+C:\Users\novri\Applications\AgentLokal\AgentLokal.exe, dengan shortcut Agent Lokal di Desktop.
 
 ## Hasil
 
@@ -80,3 +80,6 @@ Repository hanya lokal, tidak dipublikasikan. Tidak ada password SSH/sudo dalam 
 
 Paket portabel: AgentLokal-Windows.zip. Source: AgentLokal-Windows-Source.zip.
 Panduan pengguna: PANDUAN-WINDOWS.md.
+
+Perbaikan instalasi Windows: shortcut sebelumnya mengarah ke cache Codex dan konfigurasi tidak terbaca pada pembukaan biasa. Instalasi dipindahkan ke folder Applications pengguna; aplikasi mendahulukan settings.json di sebelah EXE. UI smoke menunjukkan host terisi dan SSH memakai kunci lokasi baru berhasil.
+

@@ -9,7 +9,7 @@ using System.Windows.Forms;
 using System.Drawing;
 public class ConnectionProfile { public string host; public string user; public string private_key; public string known_hosts; }
 public partial class AgentLokal {
-    static string ConfigDir {get{return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),"AgentLokal");}}
+    static string ConfigDir {get{return File.Exists(Path.Combine(AppDir,"settings.json"))?AppDir:Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),"AgentLokal");}}
     static string ConfigPath {get{return Path.Combine(ConfigDir,"settings.json");}}
     static byte[] Protect(byte[] data,string password,bool decrypt){
         byte[] magic=Encoding.ASCII.GetBytes("AGLOK001"),salt=new byte[16],iv=new byte[16];
