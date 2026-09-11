@@ -1,0 +1,1 @@
+PASS: localhost allowed, external DNS and socket connect blocked

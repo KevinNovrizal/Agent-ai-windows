@@ -1,0 +1,42 @@
+{
+  "endpoint": "http://127.0.0.1:11435/v1",
+  "seconds": 34.325600147247314,
+  "response": {
+    "choices": [
+      {
+        "finish_reason": "stop",
+        "index": 0,
+        "message": {
+          "role": "assistant",
+          "content": "Kode rahasia yang disebutkan di awal pesan tersebut adalah \"MERPATI-742\"."
+        }
+      }
+    ],
+    "created": 1789091574,
+    "model": "local-coding",
+    "system_fingerprint": "b8763-ff5ef8278",
+    "object": "chat.completion",
+    "usage": {
+      "completion_tokens": 25,
+      "prompt_tokens": 48034,
+      "total_tokens": 48059,
+      "prompt_tokens_details": {
+        "cached_tokens": 1
+      }
+    },
+    "id": "chatcmpl-3nHPryGlDmIGcuT8w2UGMyu9Yx35xhAx",
+    "timings": {
+      "cache_n": 1,
+      "prompt_n": 48033,
+      "prompt_ms": 32892.566,
+      "prompt_per_token_ms": 0.6847909978556409,
+      "prompt_per_second": 1460.299570425731,
+      "predicted_n": 25,
+      "predicted_ms": 1282.979,
+      "predicted_per_token_ms": 51.319160000000004,
+      "predicted_per_second": 19.48589961332181
+    }
+  },
+  "gpu": "Fri Sep 11 01:52:54 2026       \n+-----------------------------------------------------------------------------------------+\n| NVIDIA-SMI 595.84                 Driver Version: 595.84         CUDA Version: 13.2     |\n+-----------------------------------------+------------------------+----------------------+\n| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |\n| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |\n|                                         |                        |               MIG M. |\n|=========================================+========================+======================|\n|   0  NVIDIA GeForce RTX 5060        Off |   00000000:01:00.0 Off |                  N/A |\n| 51%   65C    P1             93W /  145W |    5208MiB /   8151MiB |     73%      Default |\n|                                         |                        |                  N/A |\n+-----------------------------------------+------------------------+----------------------+\n\n+-----------------------------------------------------------------------------------------+\n| Processes:                                                                              |\n|  GPU   GI   CI              PID   Type   Process name                        GPU Memory |\n|        ID   ID                                                               Usage      |\n|=========================================================================================|\n|    0   N/A  N/A           71746      C   /app/llama-server                      5190MiB |\n+-----------------------------------------------------------------------------------------+\n",
+  "ram": "               total        used        free      shared  buff/cache   available\nMem:     16762179584  2810171392   261160960   366837760 14416912384 13952008192\nSwap:              0           0           0\n"
+}

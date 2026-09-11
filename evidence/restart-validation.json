@@ -1,0 +1,74 @@
+{
+  "restart_health": {
+    "inference": {
+      "ok": true,
+      "status": 200
+    },
+    "models": {
+      "ok": true,
+      "status": 200
+    },
+    "ollama": {
+      "ok": true,
+      "status": 200
+    },
+    "search": {
+      "ok": true,
+      "status": 200
+    },
+    "gpu": {
+      "ok": true,
+      "data": "NVIDIA GeForce RTX 5060, 4234 MiB, 8151 MiB"
+    },
+    "memory": {
+      "ok": true,
+      "database_exists": true
+    }
+  },
+  "lessons_before": [
+    [
+      1,
+      "mean denominator off-by-one",
+      "verified"
+    ],
+    [
+      2,
+      "mean denominator off-by-one",
+      "verified"
+    ],
+    [
+      3,
+      "integration validation evidence verified",
+      "verified"
+    ],
+    [
+      4,
+      "integration validation evidence failed",
+      "failed"
+    ]
+  ],
+  "lessons_after": [
+    [
+      1,
+      "mean denominator off-by-one",
+      "verified"
+    ],
+    [
+      2,
+      "mean denominator off-by-one",
+      "verified"
+    ],
+    [
+      3,
+      "integration validation evidence verified",
+      "verified"
+    ],
+    [
+      4,
+      "integration validation evidence failed",
+      "failed"
+    ]
+  ],
+  "data_persisted": true,
+  "host_reboot_tested": false
+}

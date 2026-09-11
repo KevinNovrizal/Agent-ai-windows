@@ -1,0 +1,1 @@
+PASS: Windows snapshot, SSH, real agent, result review, apply and rollback

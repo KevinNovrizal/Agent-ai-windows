@@ -1,0 +1,1 @@
+PASS: path confinement; JSON; SHA256; encrypted profile roundtrip and tamper rejection

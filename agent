@@ -5,6 +5,8 @@ import os
 from pathlib import Path
 import subprocess
 import sys
+import json
+import urllib.request
 
 ROOT=Path('/home/kevin/local-coding-agent')
 if len(sys.argv)<2:
@@ -16,6 +18,15 @@ if workspace in (Path('/'),Path('/home'),Path('/home/kevin')) or workspace==ROOT
 lock=(ROOT/'state/agent.lock').open('w')
 print('Menunggu giliran GPU...',flush=True)
 fcntl.flock(lock,fcntl.LOCK_EX)
+try:
+    with urllib.request.urlopen('http://127.0.0.1:11435/health',timeout=10) as response:
+        if response.status!=200: raise RuntimeError('Inference is not healthy')
+    with urllib.request.urlopen('http://127.0.0.1:11435/props',timeout=10) as response:
+        props=json.load(response)
+    if props['default_generation_settings']['n_ctx']!=64000 or props['total_slots']!=1:
+        raise RuntimeError('Server harus menyediakan konteks 64000 dan satu slot')
+except Exception as e:
+    sys.exit('Runtime lokal belum siap: '+str(e)+'. Jalankan health-check di direktori agent.')
 env={'PATH':f'{ROOT}/.venv/bin:/usr/local/bin:/usr/bin:/bin','HOME':str(ROOT/'state/hermes/home'),
      'HERMES_HOME':str(ROOT/'state/hermes'),'LOCAL_AGENT_WORKSPACE':str(workspace),
      'OPENAI_BASE_URL':'http://127.0.0.1:11435/v1','OPENAI_API_KEY':'local-only',

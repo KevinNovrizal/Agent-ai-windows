@@ -62,13 +62,17 @@ def search_docs(query: str) -> dict:
 
 class Reader(HTMLParser):
     def __init__(self):
-        super().__init__(); self.parts=[]; self.skip=0
+        super().__init__(); self.parts=[]; self.skip=0; self.buffer=[]
+    def flush(self):
+        if self.buffer: self.parts.append(' '.join(self.buffer)); self.buffer=[]
     def handle_starttag(self,tag,attrs):
         if tag in ('script','style'): self.skip+=1
+        if not self.skip and tag in ('p','li','h1','h2','h3','h4','tr','pre','dt','dd','div','section','br'): self.flush()
     def handle_endtag(self,tag):
         if tag in ('script','style'): self.skip=max(0,self.skip-1)
+        if not self.skip and tag in ('p','li','h1','h2','h3','h4','tr','pre','dt','dd','div','section'): self.flush()
     def handle_data(self,data):
-        if not self.skip and data.strip(): self.parts.append(data.strip())
+        if not self.skip and data.strip(): self.buffer.append(data.strip())
 
 @server.tool()
 def read_page(url: str, relevant_words: str = '') -> dict:
@@ -82,15 +86,18 @@ def read_page(url: str, relevant_words: str = '') -> dict:
             raw=r.read(2_000_001)
             if len(raw)>2_000_000: raise ValueError('Halaman melebihi batas 2 MB')
             text=raw.decode(r.headers.get_content_charset() or 'utf-8',errors='replace')
-        reader=Reader(); reader.feed(text); lines=reader.parts
+        reader=Reader(); reader.feed(text); reader.close(); reader.flush(); lines=reader.parts
         terms=relevant_words.lower().split()
-        selected=[line for line in lines if any(t in line.lower() for t in terms)] if terms else lines
+        hits=[i for i,line in enumerate(lines) if any(t in line.lower() for t in terms)] if terms else []
+        indices=sorted({j for i in hits for j in range(max(0,i-1),min(len(lines),i+3))})
+        selected=[lines[i] for i in indices] if indices else lines
         full='\n'.join(lines)
         cache=STATE/'web'; cache.mkdir(exist_ok=True)
         item={'url':url,'retrieved_at':now(),'text':clean(full)}
         path=cache/(hashlib.sha256(url.encode()).hexdigest()+'.json')
         path.write_text(json.dumps(item,ensure_ascii=False))
-        out={'url':url,'retrieved_at':item['retrieved_at'],'text':'\n'.join(selected or lines)[:12000],'truncated':len(full)>12000,'untrusted_data':True}
+        excerpt='\n'.join(selected)
+        out={'url':url,'retrieved_at':item['retrieved_at'],'text':excerpt[:12000],'truncated':len(excerpt)>12000,'untrusted_data':True}
     except Exception as e: out={'url':url,'error':str(e)}
     return trace('read_page',{'url':url,'relevant_words':relevant_words},out)
 
@@ -109,7 +116,7 @@ def find_lessons(query: str) -> dict:
 def save_lesson(signature: str, lesson: str, dependencies: str = '', sources: str = '') -> dict:
     """Simpan pengalaman. Server menjalankan unittest dalam container; hanya tes nyata >0 dan sukses menjadi verified. Catat percobaan gagal dalam lesson."""
     container='local-lesson-'+uuid.uuid4().hex[:12]
-    command=['docker','run','--name',container,'--rm','--user',f'{os.getuid()}:{os.getgid()}','--cap-drop=ALL','--security-opt=no-new-privileges','--network=none','--memory=1g','--pids-limit=128','-v',f'{WORKSPACE}:/workspace','-w','/workspace','local-coding-sandbox:1','python','-m','unittest','discover','-v']
+    command=['docker','run','--name',container,'--rm','--user',f'{os.getuid()}:{os.getgid()}','--cap-drop=ALL','--security-opt=no-new-privileges','--network=none','--memory=1g','--pids-limit=128','-v',f'{WORKSPACE}:/workspace','-w','/workspace','local-coding-sandbox:1','sh','-c','python --version; python -m pip freeze; exec python -m unittest discover -v']
     try:
         with tempfile.TemporaryFile() as log:
             proc=subprocess.run(command,stdout=log,stderr=subprocess.STDOUT,timeout=90,
@@ -117,7 +124,8 @@ def save_lesson(signature: str, lesson: str, dependencies: str = '', sources: st
             log.seek(0); output=log.read(65536).decode(errors='replace')[-12000:]
         count=re.search(r'Ran (\d+) tests?',output)
         verified=proc.returncode==0 and count is not None and int(count[1])>0
-        evidence={'command':'python -m unittest discover -v','exit_code':proc.returncode,'output':output,'dependencies':dependencies,'sources':sources}
+        versions='\n'.join(line for line in output.splitlines() if line.startswith('Python ') or '==' in line)
+        evidence={'command':'python -m unittest discover -v','exit_code':proc.returncode,'output':output,'dependencies':versions,'dependencies_reported_by_agent':dependencies,'sources':sources}
     except subprocess.TimeoutExpired:
         verified=False; evidence={'command':'python -m unittest discover -v','error':'timeout 90 seconds'}
     finally:

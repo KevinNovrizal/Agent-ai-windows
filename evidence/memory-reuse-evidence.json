@@ -1,0 +1,22 @@
+[
+  {
+    "time": "2026-09-11T06:40:49.699341+00:00",
+    "tool": "find_lessons",
+    "arguments": {
+      "query": "mean denominator bug"
+    },
+    "result": {
+      "lessons": [
+        {
+          "id": 1,
+          "signature": "mean denominator off-by-one",
+          "lesson": "Bug: mean() function divided by (len(values) + 1) instead of len(values). This off-by-one error caused incorrect mean calculations. For [2,4,6], it returned 3.0 instead of 4. For [9], it returned 4.5 instead of 9. Fix: Changed denominator from (len(values) + 1) to len(values). Tests: 3/3 passed after fix.",
+          "project": "/home/kevin/projects/local-agent-acceptance/bug",
+          "status": "verified",
+          "created": "2026-09-11T06:38:37.353234+00:00",
+          "evidence": "{\"command\": \"python -m unittest discover -v\", \"exit_code\": 0, \"output\": \"test_empty (test_stats.MeanTests.test_empty) ... ok\\ntest_many (test_stats.MeanTests.test_many) ... ok\\ntest_one (test_stats.MeanTests.test_one) ... ok\\n\\n----------------------------------------------------------------------\\nRan 3 tests in 0.000s\\n\\nOK\\n\", \"dependencies\": \"\", \"sources\": \"stats.py\", \"diff\": \"diff --git a/stats.py b/stats.py\\nindex f91f22b..19eb25c 100644\\n--- a/stats.py\\n+++ b/stats.py\\n@@ -1,4 +1,4 @@\\n def mean(values):\\n     if not values:\\n         raise ValueError(\\\"empty\\\")\\n-    return sum(values) / (len(values) + 1)\\n+    return sum(values) / len(values)\\n\"}"
+        }
+      ]
+    }
+  }
+]

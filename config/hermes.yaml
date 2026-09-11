@@ -21,6 +21,7 @@ terminal:
   - --pids-limit=128
   container_memory: 1024
   container_cpu: 2
+  docker_persist_across_processes: false
 platform_toolsets:
   cli:
   - terminal
@@ -67,5 +68,12 @@ mcp_servers:
     command: /home/kevin/local-coding-agent/.venv/bin/python
     args:
     - /home/kevin/local-coding-agent/integration/mcp_server.py
+    env:
+      LOCAL_AGENT_WORKSPACE: ${LOCAL_AGENT_WORKSPACE}
+    connect_timeout: 60
+    timeout: 120
     sampling:
       enabled: false
+tools:
+  tool_search:
+    enabled: 'off'

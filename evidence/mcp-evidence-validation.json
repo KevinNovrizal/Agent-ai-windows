@@ -1,0 +1,28 @@
+[
+  {
+    "id": 3,
+    "status": "verified",
+    "evidence": {
+      "command": "python -m unittest discover -v",
+      "exit_code": 0,
+      "output": "Python 3.12.14\niniconfig==2.3.0\npackaging==26.3\npluggy==1.6.0\nPygments==2.21.0\npytest==8.4.2\ntest_empty (test_stats.MeanTests.test_empty) ... ok\ntest_many (test_stats.MeanTests.test_many) ... ok\ntest_one (test_stats.MeanTests.test_one) ... ok\n\n----------------------------------------------------------------------\nRan 3 tests in 0.001s\n\nOK\n",
+      "dependencies": "Python 3.12.14\niniconfig==2.3.0\npackaging==26.3\npluggy==1.6.0\nPygments==2.21.0\npytest==8.4.2",
+      "dependencies_reported_by_agent": "",
+      "sources": "",
+      "diff": "diff --git a/stats.py b/stats.py\nindex f91f22b..19eb25c 100644\n--- a/stats.py\n+++ b/stats.py\n@@ -1,4 +1,4 @@\n def mean(values):\n     if not values:\n         raise ValueError(\"empty\")\n-    return sum(values) / (len(values) + 1)\n+    return sum(values) / len(values)\n"
+    }
+  },
+  {
+    "id": 4,
+    "status": "failed",
+    "evidence": {
+      "command": "python -m unittest discover -v",
+      "exit_code": 5,
+      "output": "Python 3.12.14\niniconfig==2.3.0\npackaging==26.3\npluggy==1.6.0\nPygments==2.21.0\npytest==8.4.2\n\n----------------------------------------------------------------------\nRan 0 tests in 0.000s\n\nNO TESTS RAN\n",
+      "dependencies": "Python 3.12.14\niniconfig==2.3.0\npackaging==26.3\npluggy==1.6.0\nPygments==2.21.0\npytest==8.4.2",
+      "dependencies_reported_by_agent": "",
+      "sources": "",
+      "diff": ""
+    }
+  }
+]
