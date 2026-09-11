@@ -77,3 +77,7 @@ Jika “runtime belum siap”, periksa health/log, versi image CUDA, dan proses 
 Backup mengecualikan state/models karena model dapat diunduh ulang dengan scripts/download-model.sh dan diverifikasi SHA256. Simpan requirements.lock.txt bersama backup/repository.
 
 Untuk model 4B, tools.tool_search.enabled=off membuat schema alat langsung tersedia dan mengurangi kesalahan pemilihan alat. Docker tidak digunakan ulang lintas proses agar mount workspace tidak tertukar antarproyek.
+
+## Untuk pengembang dan AI penerus
+
+Baca [AGENTS.md](AGENTS.md) dan [panduan penerusan](docs/AI-HANDOFF.md). Panduan menjelaskan build/pembaruan Windows, konfigurasi server, bukti pengujian, serta insiden konfigurasi di cache Codex. Instalasi Windows aktif sekarang C:\Users\novri\Applications\AgentLokal.

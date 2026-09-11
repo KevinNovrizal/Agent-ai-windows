@@ -5,3 +5,19 @@ backups/
 __pycache__/
 *.pyc
 .env
+
+# Local connection credentials and generated Windows artifacts
+*.agentlokal
+*.key
+*.pem
+*.pfx
+*.p12
+.env.*
+settings.json
+known_hosts
+server_access*
+windows-client/*.exe
+windows-client/*-test.txt
+windows-client/*-test.json
+windows-client/*-preview.png
+windows-client/workflow-*.txt
