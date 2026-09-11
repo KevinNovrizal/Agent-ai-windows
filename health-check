@@ -1,0 +1,19 @@
+#!/usr/bin/env python3
+import json
+import subprocess
+import urllib.request
+from pathlib import Path
+import sys
+
+ROOT=Path('/home/kevin/local-coding-agent')
+checks={}
+for name,url in [('inference','http://127.0.0.1:11435/health'),('models','http://127.0.0.1:11435/v1/models'),('ollama','http://127.0.0.1:11434/api/version'),('search','http://127.0.0.1:8888/')]:
+    try:
+        with urllib.request.urlopen(url,timeout=10) as r:
+            checks[name]={'ok':r.status==200,'status':r.status}
+    except Exception as e: checks[name]={'ok':False,'error':str(e)}
+gpu=subprocess.run(['nvidia-smi','--query-gpu=name,memory.used,memory.total','--format=csv,noheader'],text=True,capture_output=True)
+checks['gpu']={'ok':gpu.returncode==0,'data':gpu.stdout.strip() or gpu.stderr.strip()}
+checks['memory']={'ok':(ROOT/'state').is_dir(),'database_exists':(ROOT/'state/experience.sqlite').exists()}
+print(json.dumps(checks,indent=2,ensure_ascii=False))
+sys.exit(0 if all(v['ok'] for v in checks.values()) else 1)

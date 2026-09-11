@@ -1,0 +1,28 @@
+#!/usr/bin/env python3
+"""Launch the pinned Hermes instance with a clean environment and serialized sessions."""
+import fcntl
+import os
+from pathlib import Path
+import subprocess
+import sys
+
+ROOT=Path('/home/kevin/local-coding-agent')
+if len(sys.argv)<2:
+    sys.exit('Pemakaian: ./agent WORKSPACE [opsi Hermes, misalnya --query-file tugas.txt]')
+workspace=Path(sys.argv[1]).expanduser().resolve()
+if not workspace.is_dir(): sys.exit('Workspace harus berupa direktori yang sudah ada.')
+if workspace in (Path('/'),Path('/home'),Path('/home/kevin')) or workspace==ROOT or workspace in ROOT.parents or ROOT in workspace.parents:
+    sys.exit('Pilih direktori proyek tersendiri, bukan direktori home atau sistem agent.')
+lock=(ROOT/'state/agent.lock').open('w')
+print('Menunggu giliran GPU...',flush=True)
+fcntl.flock(lock,fcntl.LOCK_EX)
+env={'PATH':f'{ROOT}/.venv/bin:/usr/local/bin:/usr/bin:/bin','HOME':str(ROOT/'state/hermes/home'),
+     'HERMES_HOME':str(ROOT/'state/hermes'),'LOCAL_AGENT_WORKSPACE':str(workspace),
+     'OPENAI_BASE_URL':'http://127.0.0.1:11435/v1','OPENAI_API_KEY':'local-only',
+     'SEARXNG_URL':'http://127.0.0.1:8888','PYTHONDONTWRITEBYTECODE':'1','TERM':os.environ.get('TERM','xterm-256color'),'LANG':'C.UTF-8'}
+Path(env['HOME']).mkdir(parents=True,exist_ok=True)
+command=[str(ROOT/'.venv/bin/python'),str(ROOT/'integration/run_hermes.py'),'chat','--provider','custom','--max-turns','20','--run-budget','600',*sys.argv[2:]]
+try:
+    sys.exit(subprocess.call(command,cwd=workspace,env=env))
+except KeyboardInterrupt:
+    sys.exit(130)

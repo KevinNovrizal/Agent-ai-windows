@@ -1,0 +1,7 @@
+work/
+state/
+backups/
+.venv/
+__pycache__/
+*.pyc
+.env

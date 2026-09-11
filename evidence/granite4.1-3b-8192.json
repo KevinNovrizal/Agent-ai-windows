@@ -1,0 +1,40 @@
+{
+  "model": "granite4.1:3b",
+  "context_requested": 8192,
+  "seconds": 138.7503879070282,
+  "response": {
+    "model": "granite4.1:3b",
+    "created_at": "2026-09-10T15:07:30.234122001Z",
+    "message": {
+      "role": "assistant",
+      "content": "",
+      "tool_calls": [
+        {
+          "id": "call_wh7se5qp",
+          "function": {
+            "index": 0,
+            "name": "tulis_file",
+            "arguments": {
+              "path": "hello.py",
+              "content": "print('Halo Indonesia')"
+            }
+          }
+        }
+      ]
+    },
+    "done": true,
+    "done_reason": "stop",
+    "total_duration": 138657575828,
+    "load_duration": 138095004577,
+    "prompt_eval_count": 196,
+    "prompt_eval_duration": 253536215,
+    "eval_count": 33,
+    "eval_duration": 239105785
+  },
+  "gpu_before": "Thu Sep 10 15:05:11 2026       \n+-----------------------------------------------------------------------------------------+\n| NVIDIA-SMI 595.84                 Driver Version: 595.84         CUDA Version: 13.2     |\n+-----------------------------------------+------------------------+----------------------+\n| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |\n| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |\n|                                         |                        |               MIG M. |\n|=========================================+========================+======================|\n|   0  NVIDIA GeForce RTX 5060        Off |   00000000:01:00.0 Off |                  N/A |\n| 36%   33C    P8              7W /  145W |      10MiB /   8151MiB |      0%      Default |\n|                                         |                        |                  N/A |\n+-----------------------------------------+------------------------+----------------------+\n\n+-----------------------------------------------------------------------------------------+\n| Processes:                                                                              |\n|  GPU   GI   CI              PID   Type   Process name                        GPU Memory |\n|        ID   ID                                                               Usage      |\n|=========================================================================================|\n|  No running processes found                                                             |\n+-----------------------------------------------------------------------------------------+\n",
+  "gpu_after": "Thu Sep 10 15:07:30 2026       \n+-----------------------------------------------------------------------------------------+\n| NVIDIA-SMI 595.84                 Driver Version: 595.84         CUDA Version: 13.2     |\n+-----------------------------------------+------------------------+----------------------+\n| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |\n| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |\n|                                         |                        |               MIG M. |\n|=========================================+========================+======================|\n|   0  NVIDIA GeForce RTX 5060        Off |   00000000:01:00.0 Off |                  N/A |\n| 36%   47C    P1             43W /  145W |    2728MiB /   8151MiB |     76%      Default |\n|                                         |                        |                  N/A |\n+-----------------------------------------+------------------------+----------------------+\n\n+-----------------------------------------------------------------------------------------+\n| Processes:                                                                              |\n|  GPU   GI   CI              PID   Type   Process name                        GPU Memory |\n|        ID   ID                                                               Usage      |\n|=========================================================================================|\n|    0   N/A  N/A           36294      C   /usr/bin/ollama                        2710MiB |\n+-----------------------------------------------------------------------------------------+\n",
+  "ram_before": "               total        used        free      shared  buff/cache   available\nMem:     16762179584  1987444736  9763639296     1818624  5352476672 14774734848\nSwap:              0           0           0\n",
+  "ram_after": "               total        used        free      shared  buff/cache   available\nMem:     16762179584  2593984512  6870872064    36438016  7692791808 14168195072\nSwap:              0           0           0\n",
+  "ollama_ps": "NAME             ID              SIZE      PROCESSOR    CONTEXT    UNTIL              \ngranite4.1:3b    6fd349357287    2.7 GB    100% GPU     8192       9 minutes from now    \n",
+  "tokens_per_second": 138.0142266319487
+}

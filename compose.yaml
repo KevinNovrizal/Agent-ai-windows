@@ -1,0 +1,61 @@
+name: local-coding-agent
+services:
+  searxng:
+    image: searxng/searxng@sha256:2fb0fa85096fe6df5c3ab98ecb4d6e0ee2ef66b8fb96ce6fce0f75b51c4bd90a
+    ports:
+    - 127.0.0.1:8888:8080
+    volumes:
+    - ./state/searxng:/etc/searxng:rw
+    environment:
+      SEARXNG_BASE_URL: http://127.0.0.1:8888/
+    restart: unless-stopped
+    mem_limit: 768m
+  inference:
+    image: ghcr.io/ggml-org/llama.cpp@sha256:b5bfd13fec72d739f3b9b3630f55339d38f5a04403816762ea6f3fca5b694b8d
+    ports:
+    - 127.0.0.1:11435:8080
+    volumes:
+    - ollama-models:/models:ro
+    deploy:
+      resources:
+        reservations:
+          devices:
+          - driver: nvidia
+            device_ids:
+            - '0'
+            capabilities:
+            - gpu
+    command:
+    - -m
+    - /models/models/blobs/sha256-662b0626cd58f443baea23559b469df6576a81d349649c59413b36a9fb32eb29
+    - --host
+    - 0.0.0.0
+    - --port
+    - '8080'
+    - --alias
+    - local-coding
+    - -c
+    - '64000'
+    - -np
+    - '1'
+    - -ngl
+    - '999'
+    - -ot
+    - .*=CUDA0
+    - --fit
+    - 'off'
+    - --no-mmap
+    - -fa
+    - 'on'
+    - -ctk
+    - q8_0
+    - -ctv
+    - q8_0
+    - --jinja
+    - -n
+    - '2048'
+    restart: unless-stopped
+volumes:
+  ollama-models:
+    external: true
+    name: ai-stack_ollama

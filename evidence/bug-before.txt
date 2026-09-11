@@ -1,0 +1,26 @@
+test_empty (test_stats.MeanTests.test_empty) ... ok
+test_many (test_stats.MeanTests.test_many) ... FAIL
+test_one (test_stats.MeanTests.test_one) ... FAIL
+
+======================================================================
+FAIL: test_many (test_stats.MeanTests.test_many)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/kevin/projects/local-agent-acceptance/bug/test_stats.py", line 4, in test_many
+    def test_many(self): self.assertEqual(mean([2, 4, 6]), 4)
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 3.0 != 4
+
+======================================================================
+FAIL: test_one (test_stats.MeanTests.test_one)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/kevin/projects/local-agent-acceptance/bug/test_stats.py", line 5, in test_one
+    def test_one(self): self.assertEqual(mean([9]), 9)
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 4.5 != 9
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.001s
+
+FAILED (failures=2)

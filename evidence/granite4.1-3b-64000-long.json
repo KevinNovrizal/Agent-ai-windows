@@ -1,0 +1,27 @@
+{
+  "model": "granite4.1:3b",
+  "context_requested": 64000,
+  "seconds": 30.04797673225403,
+  "response": {
+    "model": "granite4.1:3b",
+    "created_at": "2026-09-10T15:09:02.884554157Z",
+    "message": {
+      "role": "assistant",
+      "content": "MERPATI-742"
+    },
+    "done": true,
+    "done_reason": "stop",
+    "total_duration": 29977818690,
+    "load_duration": 97218704,
+    "prompt_eval_count": 48044,
+    "prompt_eval_duration": 29547927733,
+    "eval_count": 6,
+    "eval_duration": 121309778
+  },
+  "gpu_before": "Thu Sep 10 15:08:32 2026       \n+-----------------------------------------------------------------------------------------+\n| NVIDIA-SMI 595.84                 Driver Version: 595.84         CUDA Version: 13.2     |\n+-----------------------------------------+------------------------+----------------------+\n| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |\n| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |\n|                                         |                        |               MIG M. |\n|=========================================+========================+======================|\n|   0  NVIDIA GeForce RTX 5060        Off |   00000000:01:00.0 Off |                  N/A |\n| 36%   36C    P8              8W /  145W |    5158MiB /   8151MiB |      0%      Default |\n|                                         |                        |                  N/A |\n+-----------------------------------------+------------------------+----------------------+\n\n+-----------------------------------------------------------------------------------------+\n| Processes:                                                                              |\n|  GPU   GI   CI              PID   Type   Process name                        GPU Memory |\n|        ID   ID                                                               Usage      |\n|=========================================================================================|\n|    0   N/A  N/A           37602      C   /usr/bin/ollama                        5140MiB |\n+-----------------------------------------------------------------------------------------+\n",
+  "gpu_after": "Thu Sep 10 15:09:02 2026       \n+-----------------------------------------------------------------------------------------+\n| NVIDIA-SMI 595.84                 Driver Version: 595.84         CUDA Version: 13.2     |\n+-----------------------------------------+------------------------+----------------------+\n| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |\n| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |\n|                                         |                        |               MIG M. |\n|=========================================+========================+======================|\n|   0  NVIDIA GeForce RTX 5060        Off |   00000000:01:00.0 Off |                  N/A |\n| 50%   67C    P1            143W /  145W |    5158MiB /   8151MiB |     79%      Default |\n|                                         |                        |                  N/A |\n+-----------------------------------------+------------------------+----------------------+\n\n+-----------------------------------------------------------------------------------------+\n| Processes:                                                                              |\n|  GPU   GI   CI              PID   Type   Process name                        GPU Memory |\n|        ID   ID                                                               Usage      |\n|=========================================================================================|\n|    0   N/A  N/A           37602      C   /usr/bin/ollama                        5140MiB |\n+-----------------------------------------------------------------------------------------+\n",
+  "ram_before": "               total        used        free      shared  buff/cache   available\nMem:     16762179584  2403557376  7073902592   150712320  7794462720 14358622208\nSwap:              0           0           0\n",
+  "ram_after": "               total        used        free      shared  buff/cache   available\nMem:     16762179584  2527821824  6936457216   150732800  7807664128 14234357760\nSwap:              0           0           0\n",
+  "ollama_ps": "NAME             ID              SIZE      PROCESSOR    CONTEXT    UNTIL              \ngranite4.1:3b    6fd349357287    6.9 GB    100% GPU     64000      9 minutes from now    \n",
+  "tokens_per_second": 49.46015151392001
+}
